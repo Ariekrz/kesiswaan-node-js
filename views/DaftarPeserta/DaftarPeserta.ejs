@@ -1,0 +1,222 @@
+<%- include('../header');%>
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/menuNav');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/topNavBar');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data  Ekstrakulikuler /</span>DaftarPeserta</h4>
+        <!-- Contextual Classes -->
+        <div class="card">
+          <h5 class="card-header">Daftar Peserta</h5>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <caption class="ms-4">
+                <!-- Untuk Halaman Pagination -->
+                <a href="#" data-bs-toggle="modal" data-bs-target="#tambahData"><span class="badge bg-label-primary me-1">Tambah Data</span></a>
+                <!-- Modal Tamba Data -->
+                <div class="modal fade" id="tambahData" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">TAMBAH DATA</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="/DaftarPeserta/simpanDaftarPeserta">
+                            <div class="modal-body">
+                              <div class="col mb-3">
+                                <label class="form-label" for="idPesertaEskul">Id Peserta</label>
+                                <input type="text" class="form-control" name="idPesertaEskul" placeholder="xxxxx" />
+                              </div>
+                              <div class="row g-2">
+                                <label for="idInfoeskul">Nama Ekskul</label>
+
+                                <select name="idInfoeskul"   class="form-control">
+                                  <option value="1">Ekstrakulikuler Basket                                    </option>
+                                  <option value="2">Ekstrakulikuler Olahraga Tradisional</option>
+                                  <option value="3">Ekstrakulikuler volly</option>
+                                  <option value="4">Ekstrakulikuler futsal</option>
+                                </select>
+                          
+                              </div>
+                           <div class="row g-2">
+                                <label for="noIdGuru">Nama Guru</label>
+
+                                <select name="noIdGuru"  class="form-control">
+                                  <option value="1">Pa Alfian Rahman</option>
+                                  <option value="2">Pa Ryan Permana</option>
+                                  <option value="3">Pa Jimmy</option>
+                                  <option value="4">Pa Raka</option>
+                                  <option value="5">Pa ade</option>
+                                  <option value="6">Pa tri</option>
+                                  <option value="7">Pa Rahmat</option>
+                                  <option value="8">Pa Lutfi</option>
+
+                                </select>
+                          
+                          </div>
+                                  <div class="row g-2">
+                                  <div class="col mb-3">
+                                    <label for="noIdPesertaDidik" class="form-label">id Peserta Didik</label>
+                                    <input name="noIdPesertaDidik" type="text" class="form-control" placeholder="xxxxx">
+                                  </div>
+                                  </div>
+                                
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                  Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Simpan Info</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>     
+                <!-- Modal Unggah Data -->
+                <div class="modal fade" id="unggahData" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Unggah Data Jenis Pengguna.csv</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label for="nameWithTitle" class="form-label">Pilih Berkas CSV Data</label>
+                                        <form action="/unggahJenisPengguna" method="post" enctype="multipart/form-data">    
+                                            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="csv" name="import-csv"/>
+                                            <hr>
+                                            <button class="btn btn-outline-primary" type="reset" id="inputGroupFileAddon04">Reset</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </form>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+              </caption>
+              <thead>
+                <tr>
+                  <th><%= thSatu %></th>
+                  <th><%= thDua %></th>
+                  <th><%= thTiga %></th>
+                  <th><%= thEmpat %></th>
+                  <th><%= thLima %></th>
+                  <th><%= thEnam %></th>
+                  <th><%= thTujuh %></th>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <% if(data.length){              
+                  for(var i = 0; i< data.length; i++) {%>
+                <tr class="table-default">
+                  <td><%=data[i].idPesertaEskul%></td>
+                  <td><%=data[i].nama_ekskul%></td>
+                  <td><%=data[i].namaGuru%></td>
+                  <td><%=data[i].namaPesertaDidik%></td>
+                  <td><%=data[i].kelas%></td>
+                  <td><%=data[i].jurusan%></td>
+                  <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editData<%= data[i].idPesertaEskul%>"
+                          ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                        >
+                        <a class="dropdown-item" href="/DaftarPeserta/hapusDaftarPeserta/<%=data[i].idPesertaEskul%>"
+                          ><i class="bx bx-trash me-1"></i> Delete</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Edit Tamba Data -->
+                <div class="modal fade" id="editData<%=data[i].idPesertaEskul%>" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">EDIT DATA</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="/DaftarPeserta/updateDaftarPeserta">
+                            <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="idPesertaEskul" class="form-label">id namaPesertaDidik</label>
+                                    <input name="idPesertaEskul" type="text" class="form-control" placeholder="xxxxx" value="<%= data[i].idPesertaEskul%>"/>
+                                  </div>
+                                  <div class="row g-2">
+                                    <label for="pet-select">nama_ekskul</label>
+                                <select name="idInfoeskul"  class="form-control" value="<%= data[i].noIdPesertaDidik%>">
+                                  <option value="<%= data[i].idInfoeskul%>"><%= data[i].nama_ekskul%></option>    
+                                  <option value="1">Ekstrakulikuler Basket                                    </option>
+                                  <option value="2">Ekstrakulikuler Olahraga Tradisional</option>
+                                  <option value="3">Ekstrakulikuler volly</option>
+                                  <option value="4">Ekstrakulikuler futsal</option>
+                                 
+                                </select>
+                                    
+                              
+                              </div>
+                               <div class="row g-2">
+                                    <label for="pet-select">namaGuru</label>
+                                    <select name="noIdGuru"  class="form-control" value="<%= data[i].noIdGuru%>">
+                                      <option value="<%= data[i].noIdGuru%>"><%= data[i].namaGuru%></option>    
+                                      <option value="1">Pa Alfian Rahman</option>
+                                      <option value="2">Pa Ryan Permana</option>
+                                      <option value="3">Pa Jimmy</option>
+                                      <option value="4">Pa Raka</option>
+                                      <option value="5">Pa ade</option>
+                                      <option value="6">Pa tri</option>
+                                      <option value="7">Pa Rahmat</option>
+                                      <option value="8">Pa Lutfi</option>
+                                        </select>
+                              </div>
+                                  <div class="col mb-3">
+                                    <label for="noIdPesertaDidik" class="form-label">id namaPesertaDidik</label>
+                                    <input name="noIdPesertaDidik" type="text" class="form-control" placeholder="xxxxx" value="<%= data[i].noIdPesertaDidik%>"/>
+                                  </div>
+                                   <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                              </button>
+                              <button type="submit" class="btn btn-primary">Simpan Info</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+                <% }
+                                    
+              }else{ %>
+                  <tr>
+                      <td colspan="7">
+                          <div class="alert alert-danger" role="alert">
+                              Data Tidak Ditemukan !
+                          </div>
+                      </td>
+                  </tr>
+              <% } %>    
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--/ Contextual Classes -->
+      </div>
+      <!-- / Content -->
+<%- include('../footer');%>

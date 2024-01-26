@@ -1,0 +1,83 @@
+<%- include('../header');%>
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/menuNav');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/topNavBar');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Content wrapper -->
+
+      <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Profile /</span> Setting</h4>
+
+          <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/profile"
+                      ><i class="bx bx-user me-1"></i> Account</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="setting"><i class="bx bx-cog me-2"></i> Setting</a>
+                  </li>
+                
+                  </li>
+                
+                </ul>
+                <hr class="my-0" />
+                <div class="card-body">
+                  <form>
+                    <% if(data.length){              
+                      for(var i = 0; i< data.length; i++) {%>
+                        <form  method="POST" action="/profile/updateProfile">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label for="namaPengguna" class="form-label">Nama Pengguna</label>
+                        <input type="text" name="namaPengguna" class="form-control" placeholder="xxxx"  value="<%= data[i].namaPengguna%>" />
+
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="username" class="form-label">User Name</label>
+                        <input type="text" name="username" class="form-control" placeholder="xxxx"  value="<%= data[i].userName%>" />
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="passWord" class="form-label">Password</label>
+                        <input type="text" name="passWord" class="form-control" placeholder="xxxx"  value="<%= data[i].passWord%>" />
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Update Akun</button>
+                      </div>
+                    </div>
+                  </form>
+             
+          </div>
+      </div>
+      
+  </div>
+</div>
+<% }
+                                    
+}else{ %>
+    <tr>
+        <td colspan="6">
+            <div class="alert alert-danger" role="alert">
+                Data Tidak Ditemukan !
+            </div>
+        </td>
+    </tr>
+<% } %>    
+<!--/ Contextual Classes -->
+                <!-- /Account -->
+<%- include('../footer');%>

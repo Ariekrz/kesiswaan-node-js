@@ -1,0 +1,181 @@
+<%- include('../header');%>
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/menuNav');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Menu Navigasi Side-->
+      <%- include('../admin/topNavBar');%>
+      <!-- End Menu Navigasi Side-->
+      <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Siswa /</span> Nilai Ekstrakulikuler</h4>
+        <!-- Contextual Classes -->
+        <div class="card">
+          <h5 class="card-header">Nilai Ekstrakulikuler Siswa</h5>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <caption class="ms-4">
+                <!-- Untuk Halaman Pagination -->
+                <a href="#" data-bs-toggle="modal" data-bs-target="#tambahData"><span class="badge bg-label-primary me-1">Tambah NILAI</span></a>
+                <!-- Modal Tamba Data -->
+                <div class="modal fade" id="tambahData" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">TAMBAH NILAI</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form  method="POST" action="/NilaiEskul/simpanNilai">
+                            <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="IdNilaieskul" class="form-label"> ID NILAI</label>
+                                    <input name="IdNilaieskul" type="text" class="form-control" placeholder="isi id nilai"/>
+                                  </div>
+                                  <div class="col mb-3">
+                                    <label for="noIdPesertaDidik" class="form-label">NAMA SISWA</label>
+                                    <input name="noIdPesertaDidik" type="text" class="form-control" placeholder="id Peserta didik"  />
+                                  </div>
+                                </div>
+                                <div class="col mb-3">
+                                  <label for="idInfoeskul" class="form-label">NAMA ESKUL</label>
+  
+                                  <select name="idInfoeskul"   class="form-control">
+                                    <option value="1">Ekstrakulikuler Basket                                    </option>
+                                    <option value="2">Ekstrakulikuler Olahraga Tradisional</option>
+                                    <option value="3">Ekstrakulikuler volly</option>
+                                    <option value="4">Ekstrakulikuler futsal</option>
+                               
+                                  </select>
+                            
+                                </div>
+                                 
+                                  <div class="row g-2">
+                                    <div class="col mb-0">
+                                      <label for="keterangan" class="form-label">Keterangan</label>
+                                      <input type="text" name="keterangan" class="form-control" placeholder=" keterangan nilai" />
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                  Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Simpan Nilai</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>     
+               
+              <thead>
+                <tr>
+                  <th><%= thSatu %></th>
+                  <th><%= thDua %></th>
+                  <th><%= thTiga %></th>
+                  <th><%= thLima %></th>
+                  <th><%= thEnam %></th>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <% if(data.length){              
+                  for(var i = 0; i< data.length; i++) {%>
+                <tr class="table-default">
+                  <td><%=data[i].IdNilaieskul%></td>
+                  <td><%= data[i].namaPesertaDidik%></i></td>
+                  <td><%=data[i].nama_ekskul%></td>
+                  <td><%=data[i].keterangan%></td>
+
+                  <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editData<%= data[i].IdNilaieskul%>"
+                          ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                        >
+                        <a class="dropdown-item" href="/NilaiEskul/hapusNilai/<%=data[i].IdNilaieskul%>"
+                          ><i class="bx bx-trash me-1"></i> Delete</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Edit Tamba Data -->
+                <div class="modal fade" id="editData<%=data[i].IdNilaieskul%>" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">EDIT NILAI</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form id="formAccountSettings" method="POST" action="/NilaiEskul/updateNilai">
+                            <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="IdNilaieskul" class="form-label"> ID NILAI</label>
+                                    <input type="text" class="form-control" name="IdNilaieskul" placeholder="xxxxx" value="<%= data[i].IdNilaieskul%>"/>
+                                  </div>
+                                  <div class="col mb-3">
+                                    <label for="noIdPesertaDidik" class="form-label">NAMA SISWA</label>
+                                    <input type="text" class="form-control" name="noIdPesertaDidik" placeholder="xxxxx" value="<%= data[i].noIdPesertaDidik%>"/>
+                                  </div>
+                                  <div class="row g-2">
+                                    <label for="pet-select">NAMA ESKUL</label>
+                                <select name="idInfoeskul"  class="form-control" value="<%= data[i].noIdPesertaDidik%>">
+                                  <option value="<%= data[i].idInfoeskul%>"><%= data[i].nama_ekskul%></option>    
+                                  <option value="1">Ekstrakulikuler Basket                                    </option>
+                                  <option value="2">Ekstrakulikuler Olahraga Tradisional</option>
+                                  <option value="3">Ekstrakulikuler volly</option>
+                                  <option value="4">Ekstrakulikuler futsal</option>
+                                </select>
+                                    
+                              
+                              </div>
+                                  
+                                  <div class="row g-2">
+                                    <div class="col mb-0">
+                                      <label for="keterangan" class="form-label">Keterangan</label>
+                                      <input type="text" name="keterangan" class="form-control" placeholder="xxxx" value="<%= data[i].keterangan%>"/>
+                                    </div>
+                                  </div>
+                              </div>                           
+                               <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                              </button>
+                              <button type="submit" class="btn btn-primary">Simpan Info</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+                <% }
+                                    
+              }else{ %>
+                  <tr>
+                      <td colspan="6">
+                          <div class="alert alert-danger" role="alert">
+                              Data Tidak Ditemukan !
+                          </div>
+                      </td>
+                  </tr>
+              <% } %>    
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--/ Contextual Classes -->
+      </div>
+      <!-- / Content -->
+<%- include('../footer');%>
